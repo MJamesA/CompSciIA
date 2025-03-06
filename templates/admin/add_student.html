@@ -1,0 +1,30 @@
+{% extends 'AdminSidebar.html' %}
+{% block title %}Admin Login Page {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <div class="card_ mt-5 ">
+              {% if error %}
+              <div class="alert alert-danger">{{ error }}</div>
+              {% endif %}
+    <h1>Add New Student</h1>
+    <form method="POST" action="{{ url_for('admin_routes.admin_add_student') }}">
+        <label for="first_name">First Name</label>
+        <input class="form-control" type="text" name="first_name" required><br>
+
+        <label for="last_name">Last Name</label>
+        <input class="form-control" type="text" name="last_name" required><br>
+
+        <label for="id_card_number">ID Card Number</label>
+        <input class="form-control" type="text" name="id_card_number" required><br>
+
+        <button class="btn btn-primary" type="submit">Add Student</button>
+    </form>
+    <a href="{{ url_for('admin_routes.admin_students') }}">Back to Students List</a>
+</div>
+</div>
+</div>
+    {% endblock %}

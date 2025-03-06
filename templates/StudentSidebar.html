@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="{{url_for('static', filename ='/css/bootstrap.min.css')}}" 
+    rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+    crossorigin="anonymous">
+  </head>
+
+  <body>
+  <div class="row flex-row-reverse">
+    <div class="col-2 ">
+    <div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style=" height: 100vh;">
+      <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+        <li class="nav-item">
+          <a href="/student/homepage" class="nav-link py-3 border-bottom rounded-0">
+              <i class="display-2 fa-solid text-black fa-house"></i>
+  
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/student/calendar" class="nav-link py-3 border-bottom rounded-0">
+              <i class="display-2 fa-solid text-black fa-calendar-days"></i>
+  
+          </a>
+        </li>
+        <li>
+          <a href="/student/eventform" class="nav-link py-3 border-bottom rounded-0">
+              <i class="display-2 fa-solid text-black fa-file-lines"></i>
+          </a>
+        </li>
+
+      </ul>
+  
+      <div>
+          <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+              <li>
+                  <a href="/student/login" class="nav-link py-3 border-top rounded-0 border-bottom rounded-0">
+                      <i class="display-2 fa-solid text-black fa-arrow-right-from-bracket"></i>
+                  </a>
+                </li>
+                <div class="border-top">
+                  <a href="/" class="d-flex align-items-center justify-content-center p-3 link-body-emphasis text-decoration-none">
+                  <p class="display-3">Student</p>
+                </a>
+          </ul>
+      </div>
+    </div>
+    </div>
+    <div class="col-9 ">
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+
+<script src="{{url_for('static', filename ='/js/bootstrap.bundle.min.js')}}" 
+integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+crossorigin="anonymous"></script>
+
+<script src="https://kit.fontawesome.com/1de27f3594.js" crossorigin="anonymous"></script>
+
+  </body>
+</html>

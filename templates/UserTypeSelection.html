@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User Type Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display:flex;
+            justify-content: center;
+            background-color: #f4f4f9;
+            margin: 100px;
+        }
+        .container {
+            background-color: white;
+            padding: 100px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 30px;
+            font-size: 75px;
+            color: #333;
+        }
+        .user-type-selection {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        .user-type {
+            font-size: 50px;
+            margin: 35px 0;
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor:pointer;
+        }
+        .user-type:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Select User Type</h1>
+        <div class="user-type-selection">
+            <a href="/admin/login" class="user-type">Admin
+        </a>
+        <a href="/student/login" class="user-type">Student
+        </a>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends 'AdminSidebar.html' %}
+{% block title %}Admin Login Page {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>All Admins</h1>
+    <a class="btn btn-primary" href="{{ url_for('admin_routes.create_admin_user') }}">Add New Admin</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for admin in admin_users %}
+            <tr>                
+                <td>{{ admin.Firstname }}</td>
+                <td>{{ admin.Lastname }}</td>
+                <td>{{ admin.Username }}</td>
+                <td>{{ 'Active' if admin.is_active else 'Inactive' }}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ url_for('admin_routes.admin_profile', admin_id=admin.AdminID) }}">Edit</a>
+                    <a class="btn btn-danger" href="{{ url_for('admin_routes.admin_delete', admin_id=admin.AdminID) }}">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+    {% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'AdminSidebar.html' %}
+{% block title %}Admin Login Page {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>All Students</h1>
+    <a class="btn btn-primary" href="{{ url_for('admin_routes.admin_add_student') }}">Add New Student</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>ID Card Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.Firstname }}</td>
+                <td>{{ student.Lastname }}</td>
+                <td>{{ student.idcardnumber }}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ url_for('admin_routes.admin_student_profile', student_id=student.StudentID) }}">Edit</a>
+                    <a class="btn btn-danger" href="{{ url_for('admin_routes.admin_student_delete', student_id=student.StudentID) }}">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

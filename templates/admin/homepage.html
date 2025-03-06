@@ -1,0 +1,44 @@
+{% extends 'AdminSidebar.html' %}
+{% block title %}Admin Login Page {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row my-5 text-center justify-content-center">
+        <h1 class="display-2 fw-bold">Welcome to School Events</h1>
+        <div class="row mt-5 text-center justify-content-center">
+            <h2 class=" display-3">Admin Portal</h2>
+        </div>
+    </div>
+
+<div class="container display-6 ">
+    <div class="row justify-content-center">
+        <div class="col-5">
+            <a href="/admin/eventform" class="nav-link py-3">
+            <div class="card mt-5 p-5 text-center bg-body-secondary">
+                Events Form
+            </div>
+            </a>
+        </div>
+        <div class="col-5 align-self-center">
+            <a href="/admin/calendar" class="nav-link py-3">
+            <div class="card mt-5 p-5 text-center bg-body-secondary">
+                Digital Calendar
+            </div>
+            </a>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-5 align-self-end">
+            <a href="/admin/usermanagement" class="nav-link py-3">
+            <div class="card mt-5 p-5 text-center bg-body-secondary">
+                User Management
+            </div>
+            </a>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Edit Student</h2>
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Student ID:</label>
+                <input type="text" value="{{ student[0] }}" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Name:</label>
+                <input type="text" name="name" value="{{ student[1] }}" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email:</label>
+                <input type="email" name="email" value="{{ student[2] }}" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Student</button>
+            <a href="{{ url_for('admin_routes.admin_homepage') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

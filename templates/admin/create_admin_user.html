@@ -1,0 +1,38 @@
+{% extends 'AdminSidebar.html' %}
+{% block title %}Admin Login Page {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+<div class="col-4">
+    <h1>Create Admin User</h1>
+
+    <form method="POST">
+        <div>
+            <label for="first_name">First Name:</label>
+            <input class="form-control" type="text" name="first_name" required>
+        </div>
+        <div>
+            <label for="last_name">Last Name:</label>
+            <input class="form-control"  type="text" name="last_name" required>
+        </div>
+        <div>
+            <label for="username">Username:</label>
+            <input class="form-control"  type="text" name="username" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input class="form-control"  type="password" name="password" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Create Admin</button>
+    </form>
+
+    <a href="{{ url_for('admin_routes.admin_user_list') }}">Back to Admin List</a>
+</div>
+</div>
+</div>
+
+
+   
+    {% endblock %}
