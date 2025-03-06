@@ -12,6 +12,7 @@ def usertype():
     return render_template('UserTypeSelection.html')
 
 
+
 # Admin Registration -- Temporary
 @admin_routes.route('/admin/register', methods=['GET', 'POST'])
 def admin_register():
@@ -55,6 +56,16 @@ def admin_login():
 
     return render_template('admin/login.html')
 
+
+# Temporary
+@admin_routes.route('/temp', methods=['GET', 'POST'])
+def temp():
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        flash("You need to log in as an admin to access this page.", "error")
+        return redirect(url_for('admin_routes.admin_login'))
+
+    return render_template('admin/eventsubmissiontemplate.html')
+
 # Admin Homepage
 @admin_routes.route('/admin/homepage')
 def admin_homepage():
@@ -72,16 +83,15 @@ def eventform():
         flash("You need to log in as an admin to access this page.", "error")
         return redirect(url_for('admin_routes.admin_login'))
 
-    return render_template('admin/eventform.html') 
+    return render_template('admin/eventform.html')
 
-# Admin Event Submission
-@admin_routes.route('/admin/eventsubmission')
-def eventsubmission():
+@admin_routes.route('/admin/submission', methods=['GET', 'POST'])
+def adminsubmission():
     if 'user_type' not in session or session['user_type'] != 'admin':
         flash("You need to log in as an admin to access this page.", "error")
         return redirect(url_for('admin_routes.admin_login'))
 
-    return render_template('AdminEventSubmission.html') 
+    return render_template('admin/eventsubmissiontemplate.html')
 
 # Admin Calendar
 @admin_routes.route('/admin/calendar')
