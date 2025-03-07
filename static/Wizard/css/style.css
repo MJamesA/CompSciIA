@@ -114,7 +114,7 @@ body {
   font-weight: bold;
   font-family: 'Montserrat';
   margin: 0px;
-  background: #00a7f6;
+  background: transparent;
   position: relative;
   padding: 0px; }
 
@@ -140,20 +140,20 @@ body {
   -ms-border-radius: 60px; }
 
   .container2 {
-    width: 600px;
-    margin: auto;
-    padding: auto;
-    background: #fff;
-    box-shadow: 0px 3px 9.5px 0.5px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0px 3px 9.5px 0.5px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0px 3px 9.5px 0.5px rgba(0, 0, 0, 0.1);
-    -o-box-shadow: 0px 3px 9.5px 0.5px rgba(0, 0, 0, 0.1);
-    -ms-box-shadow: 0px 3px 9.5px 0.5px rgba(0, 0, 0, 0.1);
-    border-radius: 60px;
-    -moz-border-radius: 60px;
-    -webkit-border-radius: 60px;
-    -o-border-radius: 60px;
-    -ms-border-radius: 60px; }
+  width: 665px;
+  margin: auto;
+  padding: auto;
+  background: #fff;
+  box-shadow: 0px 3px 9.5px 0.5px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 3px 9.5px 0.5px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0px 3px 9.5px 0.5px rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 0px 3px 9.5px 0.5px rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0px 3px 9.5px 0.5px rgba(0, 0, 0, 0.1);
+  border-radius: 60px;
+  -moz-border-radius: 60px;
+  -webkit-border-radius: 60px;
+  -o-border-radius: 60px;
+  -ms-border-radius: 60px; }
 
 .finished {
   background: #0184d2; }
@@ -311,7 +311,7 @@ fieldset {
   margin-top: -29px; }
 
 .footer {
-  background: #0184d2;
+  background: #fff;
   position: absolute;
   width: 100%;
   z-index: 9;
@@ -336,5 +336,3 @@ fieldset {
   .container {
     width: calc(100% - 40px);
     max-width: 100%; } }
-
-/*# sourceMappingURL=style.css.map */

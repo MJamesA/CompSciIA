@@ -5,16 +5,18 @@
     rel="stylesheet" 
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
     crossorigin="anonymous">
+
     <link rel="stylesheet" href="{{url_for('static', filename ='/Wizard/fonts/material-icon/css/material-design-iconic-font.min.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename ='/Wizard/css/style.css')}}">
 
+    <link rel="stylesheet" href="css/style.css"/>
 
   </head>
+  
   <body>
-
     <div class="row">
       <div class="col-2">
-      <div class="d-flex flex-column flex-shrink-0 bg-body-tertiary justify-content-center" style=" height: 100vh;">
+      <div class="sticky-top d-flex flex-column flex-shrink-0 bg-body-tertiary justify-content-center" style=" height: 100vh;">
         <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
 
           <li class="nav-item">
@@ -111,8 +113,9 @@
     </div>
     <script src="{{url_for('static', filename ='/js/bootstrap.bundle.min.js')}}" 
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
-    crossorigin="anonymous">  
-    </script>
+    crossorigin="anonymous"> </script>
+    <script src="extensions/editable/bootstrap-table-editable.js"></script>
+    
     <script src="{{url_for('static', filename ='/Wizard/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{url_for('static', filename ='/Wizard/vendor/jquery-validation/dist/jquery.validate.min.js')}}"></script>
     <script src="{{url_for('static', filename ='/Wizard/vendor/jquery-validation/dist/additional-methods.min.js')}}"></script>
