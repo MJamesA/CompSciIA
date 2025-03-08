@@ -17,12 +17,10 @@ def student_register():
         id_card = request.form['id_card']
         password = request.form['password']
 
-        # Check if IDCardNumber already exists
         if Student.query.filter_by(IDCardNumber=id_card).first():
             flash("ID Card Number already registered", "error")
             return redirect(url_for('student_register'))
 
-        # Create and save the new student
         student = Student(FirstName=first_name, LastName=last_name, IDCardNumber=id_card)
         student.set_password(password)
         db.session.add(student)
@@ -135,6 +133,7 @@ def manage_events():
             FirstAid=request.form.get('first_aid_required'),
             NurseNote=request.form.get('nurse_notes'),
             Caretakers=request.form.get('caretakers'),
+            EventOrg=request.form.get('event_organiser')
         )
         # Save the event to the database
         db.session.add(new_event)
@@ -146,6 +145,8 @@ def manage_events():
         mail.send(msg)
 
         return jsonify({'message': 'Event created successfully! Email sent to organizer.'}), 201
+        return redirect(url_for('admin/formsub'))
+
     else:
         # Get all events for students
         events = Event.query.all()
