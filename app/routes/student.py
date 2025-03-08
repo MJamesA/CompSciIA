@@ -138,16 +138,16 @@ def manage_events():
         db.session.add(new_event)
         db.session.commit()
 
-        # # Send email notification
-        # msg = Message('Event Created', sender='your_email@example.com', recipients=[new_event.organizer_email])
-        # msg.body = f"Your event '{new_event.title}' has been created successfully!"
-        # mail.send(msg)
+        # Send email notification
+        msg = Message('Event Created', sender=' ia2025test@gmail.com', recipients=[new_event.EmailAddress])
+        msg.body = f"Your event '{new_event.EventTitle}' has been created successfully!"
+        mail.send(msg)
 
         return jsonify({'message': 'Event created successfully! Email sent to organizer.'}), 201
     else:
         # Get all events for students
         events = Event.query.all()
-        return jsonify([event.title for event in events])
+        return jsonify([event.EventTitle for event in events])
 
 @student_routes.route('/admin/events/<int:event_id>', methods=['GET', 'PUT', 'DELETE'])
 def admin_event(event_id):
@@ -202,3 +202,11 @@ def admin_event(event_id):
 @student_routes.route('/submit-event', methods=['GET'])
 def submit_event():
     return render_template('admin/eventsubmissiontemplate.html')
+@student_routes.route('/testemail', methods=['GET'])
+def testemail():
+     # Send email notification
+        msg = Message('Event Created', sender=' ia2025test@gmail.com', recipients=["kamelodee@gmail.com"])
+        msg.body = f"Your event 'testing' has been created successfully!"
+        mail.send(msg)
+
+        return jsonify({'message': 'Event created successfully! Email sent to organizer.'}), 201

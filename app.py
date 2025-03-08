@@ -8,6 +8,7 @@ from app.models import db, Admin, Student, Event
 from app.routes import init_routes
 import os
 from dotenv import load_dotenv
+from flask_mail import Mail
 
 # Load environment variables from .env file
 load_dotenv()
@@ -23,13 +24,14 @@ app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
 app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT'))
 app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS') == 'True'
 app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL') == 'True'
-app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
-app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+app.config['MAIL_USERNAME'] = "compsci2025ia@gmail.com"
+app.config['MAIL_PASSWORD'] = "wdif rryv zfbd feto"
 app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER')
 
 mysql = MySQL(app)
 db.init_app(app)
 migrate = Migrate(app, db)
+mail = Mail(app)
 # Create tables automatically if they don't exist
 with app.app_context():
     db.create_all()
