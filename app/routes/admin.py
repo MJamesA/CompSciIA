@@ -132,28 +132,27 @@ def editform(EventID):
     submitted_form = Event.query.get(EventID)
 
     if request.method == 'POST':
-        EventTitle=request.form['title'],
-        Description=request.form['description'],
-        EmailAddress=request.form['organizer_email'],
-        DateFilled=request.form['event_date'],
-        EventSupervisor=request.form['supervisors'],
-        SecurityStaff=request.form['security_staff'],
-        EventStart=request.form['start_time'],
-        EventEnd=request.form['end_time'],
-        # organizer_name=request.form['organizer_name'],
-        Location=request.form.get('location'),
-        Facilities=request.form.get('facilities'),
-        Resources=request.form.get('resources_needed'),
-        TeamMembers=request.form.get('team_members'),
-        Spectators=request.form.get('participants'),
-        EstSpectators=request.form.get('estspectators'),
-        ITResources=request.form.get('it_resources'),
-        Finance=request.form.get('finance_department'),
-        Communications=request.form.get('communication_department'),
-        FirstAid=request.form.get('first_aid_required'),
-        NurseNote=request.form.get('nurse_notes'),
-        Caretakers=request.form.get('caretakers'),
-        EventOrg=request.form.get('event_organiser')
+        submitted_form.EventTitle=request.form['title'],
+        submitted_form.Description=request.form['description'],
+        submitted_form.EmailAddress=request.form['organizer_email'],
+        submitted_form.DateFilled=request.form['event_date'],
+        submitted_form.EventSupervisor=request.form['supervisors'],
+        submitted_form.SecurityStaff=request.form['security_staff'],
+        submitted_form.EventStart=request.form['start_time'],
+        submitted_form.EventEnd=request.form['end_time'],
+        submitted_form.Location=request.form.get('location'),
+        submitted_form.Facilities=request.form.get('facilities'),
+        submitted_form.Resources=request.form.get('resources_needed'),
+        submitted_form.TeamMembers=request.form.get('team_members'),
+        submitted_form.Spectators=request.form.get('participants'),
+        submitted_form.EstSpectators=request.form.get('estspectators'),
+        submitted_form.ITResources=request.form.get('it_resources'),
+        submitted_form.Finance=request.form.get('finance_department'),
+        submitted_form.Communications=request.form.get('communication_department'),
+        submitted_form.FirstAid=request.form.get('first_aid_required'),
+        submitted_form.NurseNote=request.form.get('nurse_notes'),
+        submitted_form.Caretakers=request.form.get('caretakers'),
+        submitted_form.EventOrg=request.form.get('event_organiser')
 
         db.session.commit()
         flash("Profile updated successfully", "success")
@@ -161,6 +160,18 @@ def editform(EventID):
 
     return render_template('admin/eventsformedit.html', submitted_form=submitted_form )
 
+# Delete Event Form
+@admin_routes.route('/admin/deleteform/<int:EventID>', methods=['GET', 'POST'])
+def deleteform(EventID):
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        flash("You need to log in as an admin to access this page.", "error")
+        return redirect(url_for('admin_login'))
+
+    submitted_form = Event.query.get(EventID)
+    db.session.delete(submitted_form)
+    db.session.commit()
+
+    return redirect(url_for('admin_routes.existingform'))
 
 # Admin Calendar
 @admin_routes.route('/admin/calendar')

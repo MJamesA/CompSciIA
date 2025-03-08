@@ -120,7 +120,6 @@ def manage_events():
             SecurityStaff=request.form['security_staff'],
             EventStart=request.form['start_time'],
             EventEnd=request.form['end_time'],
-            # organizer_name=request.form['organizer_name'],
             Location=request.form.get('location'),
             Facilities=request.form.get('facilities'),
             Resources=request.form.get('resources_needed'),

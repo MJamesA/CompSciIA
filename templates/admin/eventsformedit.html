@@ -53,7 +53,7 @@
                         <div class="row py-2 border-bottom">
                             <div class="fw-bold col-6">Event Organiser's Email</div>
                             <div class="col-6">
-                                <input name="organizer_email" class="form-control" value="{{ submitted_form.EmailAddress }}">
+                                <input type="email" name="organizer_email" class="form-control" value="{{ submitted_form.EmailAddress }}">
                             </div>
                         </div>
                         
@@ -67,21 +67,21 @@
                         <div class="row py-2 border-bottom">
                             <div class="fw-bold col-6">Date Filled</div>
                             <div class="col-6">
-                                <input name="event_date" class="form-control" value="{{ submitted_form.DateFilled }}">
+                                <input type="date" name="event_date" class="form-control" value="{{ submitted_form.DateFilled }}">
                             </div>
                         </div>
                         
                         <div class="row py-2 border-bottom">
                             <div class="fw-bold col-6">Event Start Date and Time</div>
                             <div class="col-6">
-                                <input name="start_time" class="form-control" value="{{ submitted_form.EventStart }}">
+                                <input type="datetime-local" name="start_time" class="form-control" value="{{ submitted_form.EventStart }}">
                             </div>
                         </div>
                         
                         <div class="row py-2 border-bottom">
                             <div class="fw-bold col-6">Event End Date and Time</div>
                             <div class="col-6">
-                                <input name="end_time" class="form-control" value="{{ submitted_form.EventEnd }}">
+                                <input type="datetime-local" name="end_time" class="form-control" value="{{ submitted_form.EventEnd }}">
                             </div>
                         </div>
                         
@@ -109,7 +109,7 @@
                         <div class="row py-2 border-bottom">
                             <div class="fw-bold col-6">Estimated Number of Participants</div>
                             <div class="col-6">
-                                <input name="estspectators" class="form-control" value="{{ submitted_form.EstSpectators }}">
+                                <input type="number" name="estspectators" class="form-control" value="{{ submitted_form.EstSpectators }}">
                             </div>
                         </div>
                         
