@@ -173,11 +173,11 @@ def approveEvent(EventID):
    
 
     submitted_form = Event.query.get(EventID)
-    submitted_form.Status="SUMMITTED"
+    submitted_form.Status="APPOVED"
 
     db.session.commit()
     flash("Profile updated successfully", "success")
-    event_url = url_for('admin_routes.viewform', event_id=EventID, _external=True)
+    event_url = url_for('admin_routes.viewform', EventID=EventID, _external=True)
     
     msg = Message('Event Created', sender=' ia2025test@gmail.com', recipients=[submitted_form.EmailAddress])
     msg.body = f"Your event '{submitted_form.EventTitle}' has been approved successfully!\n\nView it here: {event_url}"
@@ -188,7 +188,7 @@ def approveEvent(EventID):
 def rejectEvent(EventID):
 
     submitted_form = Event.query.get(EventID)
-    submitted_form.Status="ReJECTED"
+  
 
     db.session.commit()
     flash("Profile updated successfully", "success")

@@ -11,7 +11,7 @@ class Admin(db.Model):
     Firstname = db.Column(db.String(20), nullable=False)
     Lastname = db.Column(db.String(20), nullable=False)
     Username = db.Column(db.String(50), nullable=False, unique=True)
-    Status = db.Column(Enum('HOS', 'CAMPUS', 'ADMIN'), default='ADMIN')
+    Role = db.Column(Enum('HOS', 'CAMPUS', 'ADMIN'), default='ADMIN')
     Password = db.Column(db.String(250), nullable=False)
     is_active = db.Column(db.Boolean, default=True)
 
@@ -70,7 +70,7 @@ class Event(db.Model):
     EstSpectators = db.Column(db.Integer, nullable=False)
     Caretakers = db.Column(db.String(255), nullable=True)
     EventOrg = db.Column(db.String(255), nullable=False)
-    Status = db.Column(Enum('SUMITTED', 'REJECTED', 'OFFICIALIZED'), default='SUMITTED')
+    Status = db.Column(Enum('SUBMITED', 'REJECTED', 'OFFICIALIZED','APPOVED'), default='SUBMITED')
     
 
     def __repr__(self):
