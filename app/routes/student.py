@@ -1,5 +1,9 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from app.models import db, Student
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
+from app.models import db, Student, Event
+from flask_mail import Mail, Message
+
+# Initialize Flask-Mail
+mail = Mail()
 
 student_routes = Blueprint('student_routes', __name__)
 
@@ -103,3 +107,91 @@ def student_logout():
     session.clear()
     flash("Logged out successfully", "success")
     return redirect(url_for('student_login'))
+
+@student_routes.route('/events', methods=['GET', 'POST'])
+def manage_events():
+    if request.method == 'POST':
+        data = request.get_json()
+        new_event = Event(
+            title=data['title'],
+            description=data['description'],
+            organizer_email=data['organizer_email'],
+            event_date=data['event_date'],
+            supervisors=data['supervisors'],
+            security_staff=data['security_staff'],
+            start_time=data['start_time'],
+            end_time=data['end_time'],
+            organizer_name=data['organizer_name'],
+            location_facilities=data.get('location_facilities'),
+            resources_needed=data.get('resources_needed'),
+            team_members=data.get('team_members'),
+            it_resources=data.get('it_resources'),
+            finance_department=data.get('finance_department'),
+            communication_department=data.get('communication_department'),
+            first_aid_required=data.get('first_aid_required'),
+            nurse_notes=data.get('nurse_notes')
+        )
+        # Save the event to the database
+        db.session.add(new_event)
+        db.session.commit()
+
+        # Send email notification
+        msg = Message('Event Created', sender='your_email@example.com', recipients=[data['organizer_email']])
+        msg.body = f"Your event '{new_event.title}' has been created successfully!"
+        mail.send(msg)
+
+        return jsonify({'message': 'Event created successfully! Email sent to organizer.'}), 201
+    else:
+        # Get all events for students
+        events = Event.query.all()
+        return jsonify([event.title for event in events])
+
+@student_routes.route('/admin/events/<int:event_id>', methods=['GET', 'PUT', 'DELETE'])
+def admin_event(event_id):
+    event = Event.query.get_or_404(event_id)
+    if request.method == 'GET':
+        # Return event details for editing
+        return jsonify({
+            'title': event.title,
+            'description': event.description,
+            'organizer_email': event.organizer_email,
+            'event_date': event.event_date,
+            'supervisors': event.supervisors,
+            'security_staff': event.security_staff,
+            'start_time': event.start_time,
+            'end_time': event.end_time,
+            'organizer_name': event.organizer_name,
+            'location_facilities': event.location_facilities,
+            'resources_needed': event.resources_needed,
+            'team_members': event.team_members,
+            'it_resources': event.it_resources,
+            'finance_department': event.finance_department,
+            'communication_department': event.communication_department,
+            'first_aid_required': event.first_aid_required,
+            'nurse_notes': event.nurse_notes
+        })
+    elif request.method == 'PUT':
+        data = request.get_json()
+        event.title = data['title']
+        event.description = data['description']
+        event.organizer_email = data['organizer_email']
+        event.event_date = data['event_date']
+        event.supervisors = data['supervisors']
+        event.security_staff = data['security_staff']
+        event.start_time = data['start_time']
+        event.end_time = data['end_time']
+        event.organizer_name = data['organizer_name']
+        event.location_facilities = data.get('location_facilities')
+        event.resources_needed = data.get('resources_needed')
+        event.team_members = data.get('team_members')
+        event.it_resources = data.get('it_resources')
+        event.finance_department = data.get('finance_department')
+        event.communication_department = data.get('communication_department')
+        event.first_aid_required = data.get('first_aid_required')
+        event.nurse_notes = data.get('nurse_notes')
+        db.session.commit()
+        return jsonify({'message': 'Event updated successfully!'}), 200
+    elif request.method == 'DELETE':
+        db.session.delete(event)
+        db.session.commit()
+        return jsonify({'message': 'Event deleted successfully!'}), 204

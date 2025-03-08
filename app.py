@@ -4,12 +4,12 @@ from flask_mysqldb import MySQL
 from functools import wraps
 import hashlib
 from flask_migrate import Migrate
-from app.models import db, Admin, Student
+from app.models import db, Admin, Student, Event
 from app.routes import init_routes
 app = Flask(__name__)
 
 # Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:malik168@localhost:3306/Eventsform'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost:3306/student_management'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'your-secret-key-here'
 
@@ -24,6 +24,12 @@ def create_tables():
         db.create_all()
 # Login decorator for admin routes
 init_routes(app, db)
+
+@app.route('/events')
+def list_events():
+    events = Event.query.all()  # Fetch all events from the database
+    return render_template('events.html', events=events)
+
 if __name__ == '__main__':
     create_tables()
     app.run(debug=True)
