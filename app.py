@@ -9,7 +9,7 @@ from app.routes import init_routes
 app = Flask(__name__)
 
 # Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost:3306/student_management'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:malik168@localhost:3306/eventsform'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'your-secret-key-here'
 
