@@ -127,9 +127,41 @@ def viewform(EventID):
 def editform(EventID):
     if 'user_type' not in session or session['user_type'] != 'admin':
         flash("You need to log in as an admin to access this page.", "error")
+
+
+
+        
         return redirect(url_for('admin_routes.admin_login'))
 
     submitted_form = Event.query.get(EventID)
+
+    if request.method == 'POST':
+        EventTitle=request.form['title'],
+        Description=request.form['description'],
+        EmailAddress=request.form['organizer_email'],
+        DateFilled=request.form['event_date'],
+        EventSupervisor=request.form['supervisors'],
+        SecurityStaff=request.form['security_staff'],
+        EventStart=request.form['start_time'],
+        EventEnd=request.form['end_time'],
+        # organizer_name=request.form['organizer_name'],
+        Location=request.form.get('location'),
+        Facilities=request.form.get('facilities'),
+        Resources=request.form.get('resources_needed'),
+        TeamMembers=request.form.get('team_members'),
+        Spectators=request.form.get('participants'),
+        EstSpectators=request.form.get('estspectators'),
+        ITResources=request.form.get('it_resources'),
+        Finance=request.form.get('finance_department'),
+        Communications=request.form.get('communication_department'),
+        FirstAid=request.form.get('first_aid_required'),
+        NurseNote=request.form.get('nurse_notes'),
+        Caretakers=request.form.get('caretakers'),
+        EventOrg=request.form.get('event_organiser')
+
+        db.session.commit()
+        flash("Profile updated successfully", "success")
+        return redirect(url_for('admin_routes.existingform'))   
 
     return render_template('admin/eventsformedit.html', submitted_form=submitted_form )
 
