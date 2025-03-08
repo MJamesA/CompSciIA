@@ -5,6 +5,7 @@ from flask_mail import Mail, Message
 # Initialize Flask-Mail
 mail = Mail()
 
+
 student_routes = Blueprint('student_routes', __name__)
 
 # Student Registration
@@ -136,7 +137,7 @@ def manage_events():
         db.session.commit()
 
         # Send email notification
-        msg = Message('Event Created', sender='your_email@example.com', recipients=[new_event.organizer_email])
+        msg = Message('Event Created', sender='ia2025test@gmail.com', recipients=[new_event.organizer_email])
         msg.body = f"Your event '{new_event.title}' has been created successfully!"
         mail.send(msg)
 
