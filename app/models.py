@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import CheckConstraint
+from sqlalchemy import CheckConstraint, Enum
 from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
@@ -11,11 +11,16 @@ class Admin(db.Model):
     Firstname = db.Column(db.String(20), nullable=False)
     Lastname = db.Column(db.String(20), nullable=False)
     Username = db.Column(db.String(50), nullable=False, unique=True)
+    Status = db.Column(Enum('HOS', 'CAMPUS', 'ADMIN'), default='ADMIN')
     Password = db.Column(db.String(250), nullable=False)
     is_active = db.Column(db.Boolean, default=True)
 
     def set_password(self, password: str) -> None:
         
+        """Set the password for the admin
+        Args:
+            password (str): The password to set
+        """
         self.Password = generate_password_hash(password)
 
     def check_password(self, password):
@@ -65,6 +70,8 @@ class Event(db.Model):
     EstSpectators = db.Column(db.Integer, nullable=False)
     Caretakers = db.Column(db.String(255), nullable=True)
     EventOrg = db.Column(db.String(255), nullable=False)
+    Status = db.Column(Enum('SUMITTED', 'REJECTED', 'OFFICIALIZED'), default='SUMITTED')
+    
 
     def __repr__(self):
         return f"<Event {self.title}>"

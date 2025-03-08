@@ -132,7 +132,8 @@ def manage_events():
             FirstAid=request.form.get('first_aid_required'),
             NurseNote=request.form.get('nurse_notes'),
             Caretakers=request.form.get('caretakers'),
-            EventOrg=request.form.get('event_organiser')
+            EventOrg=request.form.get('event_organiser'),
+            Status="SUMMITTED"
         )
         # Save the event to the database
         db.session.add(new_event)

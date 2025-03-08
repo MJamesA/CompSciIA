@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from app.models import db, Admin, Student, Event
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from flask_mail import Mail, Message
+mail = Mail()
 
 
 admin_routes = Blueprint('admin_routes', __name__)
@@ -20,13 +21,14 @@ def admin_register():
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         username = request.form['username']
+        role = request.form['role']
         password = request.form['password']
 
         if Admin.query.filter_by(Username=username).first():
             flash("Username already taken", "error")
             return redirect(url_for('admin_routes.admin_register'))
 
-        admin = Admin(Firstname=first_name, Lastname=last_name, Username=username)
+        admin = Admin(Firstname=first_name, Lastname=last_name, Username=username,role=role)
         admin.set_password(password)
         db.session.add(admin)
         db.session.commit()
@@ -157,12 +159,45 @@ def editform(EventID):
         submitted_form.NurseNote=request.form.get('nurse_notes'),
         submitted_form.Caretakers=request.form.get('caretakers'),
         submitted_form.EventOrg=request.form.get('event_organiser')
+        submitted_form.Status="SUMMITTED"
 
         db.session.commit()
         flash("Profile updated successfully", "success")
         return redirect(url_for('admin_routes.existingform'))   
 
     return render_template('admin/eventsformedit.html', submitted_form=submitted_form )
+
+
+@admin_routes.route('/admin/approve/<int:EventID>', methods=['GET', 'POST'])
+def approveEvent(EventID):
+   
+
+    submitted_form = Event.query.get(EventID)
+    submitted_form.Status="SUMMITTED"
+
+    db.session.commit()
+    flash("Profile updated successfully", "success")
+    event_url = url_for('admin_routes.viewform', event_id=EventID, _external=True)
+    
+    msg = Message('Event Created', sender=' ia2025test@gmail.com', recipients=[submitted_form.EmailAddress])
+    msg.body = f"Your event '{submitted_form.EventTitle}' has been approved successfully!\n\nView it here: {event_url}"
+    mail.send(msg)
+    return redirect(url_for('admin_routes.existingform'))   
+
+@admin_routes.route('/admin/reject/<int:EventID>', methods=['GET', 'POST'])
+def rejectEvent(EventID):
+
+    submitted_form = Event.query.get(EventID)
+    submitted_form.Status="ReJECTED"
+
+    db.session.commit()
+    flash("Profile updated successfully", "success")
+    
+    
+    msg = Message('Event Created', sender=' ia2025test@gmail.com', recipients=[submitted_form.EmailAddress])
+    msg.body = f"Your event '{submitted_form.EventTitle}' Sorry your event has been rejected !"
+    mail.send(msg)
+    return redirect(url_for('admin_routes.existingform'))   
 
 # Delete Event Form
 @admin_routes.route('/admin/deleteform/<int:EventID>', methods=['GET', 'POST'])
@@ -357,7 +392,9 @@ def admin_student_delete(student_id):
     student = Student.query.get(student_id)
     db.session.delete(student)
     db.session.commit()
+   
 
+       
     return redirect(url_for('admin_routes.admin_students'))
 
 
