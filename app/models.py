@@ -38,7 +38,7 @@ class Student(db.Model):
     StudentID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     Firstname = db.Column(db.String(20), nullable=False)
     Lastname = db.Column(db.String(20), nullable=False)
-    idcardnumber = db.Column(db.Integer, CheckConstraint("idcardnumber >= 100000 AND idcardnumber <= 999999", name="check_idcardnumber_length"))
+    idcardnumber = db.Column(db.Integer, nullable=False, unique=True)
 
    
     def __repr__(self):
@@ -68,9 +68,9 @@ class Event(db.Model):
     Communications = db.Column(db.String(255), nullable=True)
     FirstAid = db.Column(db.String(255), nullable=True)
     NurseNote = db.Column(db.Text, nullable=True)
-    Spectators = db.Column(db.Integer, default=0)
-    EstSpectators = db.Column(db.Integer, default=0)
-    Caretakers = db.Column(db.Integer, default=0)
+    Spectators = db.Column(db.String(255), nullable=False)
+    EstSpectators = db.Column(db.Integer, nullable=False)
+    Caretakers = db.Column(db.String(255), nullable=True)
 
     def __repr__(self):
         return f"<Event {self.title}>"

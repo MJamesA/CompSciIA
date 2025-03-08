@@ -127,12 +127,14 @@ def manage_events():
             Facilities=request.form.get('facilities'),
             Resources=request.form.get('resources_needed'),
             TeamMembers=request.form.get('team_members'),
+            Spectators=request.form.get('participants'),
+            EstSpectators=request.form.get('estspectators'),
             ITResources=request.form.get('it_resources'),
             Finance=request.form.get('finance_department'),
             Communications=request.form.get('communication_department'),
             FirstAid=request.form.get('first_aid_required'),
             NurseNote=request.form.get('nurse_notes'),
-            Caretakers=request.form.get(''),
+            Caretakers=request.form.get('caretakers'),
         )
         # Save the event to the database
         db.session.add(new_event)

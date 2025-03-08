@@ -16,6 +16,8 @@
         <div class="container">
             <form method="POST" id="signup-form" class="signup-form" action="/events">
                 <div>
+
+                    
                     <h3></h3>
                     <fieldset>
                         <input type="text" name="title" id="title" />
@@ -24,14 +26,26 @@
 
                     <h3></h3>
                     <fieldset>
+                        <input type="email" name="organizer_email" id="organizer_email" />
+                        <label type="text" for="organizer_email" class="form-label">Organizer Email</label>
+                    </fieldset>
+
+
+
+
+                    <h3></h3>
+                    <fieldset>
                         <label for="description">Event Description:</label>
                         <textarea id="description" name="description" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea><br><br>
                     </fieldset>
 
+
+
+
                     <h3></h3>
                     <fieldset>
-                        <input type="email" name="organizer_email" id="organizer_email" />
-                        <label for="organizer_email" class="form-label">Organizer Email</label>
+                        <label for="event_date" >Date Filled</label>
+                        <input type="date" name="event_date" id="event_date" />
                     </fieldset>
                     <h3></h3>
                     <fieldset>
@@ -41,9 +55,18 @@
 
                     <h3></h3>
                     <fieldset>
-                        <input type="date" name="event_date" id="event_date" />
-                        <label for="event_date" class="form-label">Event Date</label>
+                        <label for="start_time" >Start Time</label>
+                        <input type="datetime-local" name="start_time" id="start_time" />
                     </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <label for="end_time" >End Time</label>
+                        <input type="datetime-local" name="end_time" id="end_time" />
+                    </fieldset>
+
+
+
 
                     <h3></h3>
                     <fieldset>
@@ -53,57 +76,54 @@
 
                     <h3></h3>
                     <fieldset>
-                        <input type="text" name="security_staff" id="security_staff" />
-                        <label for="security_staff" class="form-label">Security Staff</label>
+                        <textarea type="text" name="team_members" id="team_members" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
+                        <label  for="team_members" class="form-label">Team Members</label>
+                    </fieldset>
+
+
+
+
+                    <h3></h3>
+                    <fieldset>
+                        <input type="text" name="participants" id="participants" />
+                        <label for="participants" class="form-label">Participants</label>
                     </fieldset>
 
                     <h3></h3>
                     <fieldset>
-                        <input type="datetime-local" name="start_time" id="start_time" />
-                        <label for="start_time" class="form-label">Start Time</label>
+                        <input type="integer" name="estspectators" id="estspectators" />
+                        <label for="estspectators" class="form-label">Estimated Number of Participants</label>
+                    </fieldset>
+
+
+
+
+                    <h3></h3>
+                    <fieldset>
+                        <label for="location">Location</label>
+                        <textarea type="text" name="location" id="location" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
                     </fieldset>
 
                     <h3></h3>
                     <fieldset>
-                        <input type="datetime-local" name="end_time" id="end_time" />
-                        <label for="end_time" class="form-label">End Time</label>
+                        <label for="facilities">Facilities</label>
+                        <textarea type="text" name="facilities" id="facilities" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
                     </fieldset>
 
                     <h3></h3>
                     <fieldset>
-                        <input type="text" name="organizer_name" id="organizer_name" />
-                        <label for="organizer_name" class="form-label">Organizer Name</label>
+                        <label for="resources_needed">Resources Needed</label>
+                        <textarea type="text" name="resources_needed" id="resources_needed" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
                     </fieldset>
 
                     <h3></h3>
                     <fieldset>
-                        <textarea name="location" id="location" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
-                        <label for="location" class="form-label">Location</label>
+                        <label for="it_resources">IT Resources</label>
+                        <textarea type="text" name="it_resources" id="it_resources" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
                     </fieldset>
 
-                    <h3></h3>
-                    <fieldset>
-                        <textarea name="facilities" id="facilities" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
-                        <label for="facilities" class="form-label">Facilities</label>
-                    </fieldset>
 
-                    <h3></h3>
-                    <fieldset>
-                        <textarea name="resources_needed" id="resources_needed" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
-                        <label for="resources_needed" class="form-label">Resources Needed</label>
-                    </fieldset>
 
-                    <h3></h3>
-                    <fieldset>
-                        <textarea name="team_members" id="team_members" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
-                        <label for="team_members" class="form-label">Team Members</label>
-                    </fieldset>
-
-                    <h3></h3>
-                    <fieldset>
-                        <textarea name="it_resources" id="it_resources" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
-                        <label for="it_resources" class="form-label">IT Resources</label>
-                    </fieldset>
 
                     <h3></h3>
                     <fieldset>
@@ -117,6 +137,15 @@
                         <label for="communication_department" class="form-label">Communication Department</label>
                     </fieldset>
 
+
+
+
+                    <h3></h3>
+                    <fieldset>
+                        <input type="text" name="security_staff" id="security_staff" />
+                        <label for="security_staff" class="form-label">Security Staff</label>
+                    </fieldset>
+
                     <h3></h3>
                     <fieldset>
                         <input type="text" name="first_aid_required" id="first_aid_required" />
@@ -125,8 +154,14 @@
 
                     <h3></h3>
                     <fieldset>
+                        <label for="nurse_notes">Nurse Notes</label>
                         <textarea name="nurse_notes" id="nurse_notes" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
-                        <label for="nurse_notes" class="form-label">Nurse Notes</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <label for="caretakers">Caretakers</label>
+                        <textarea name="caretakers" id="caretakers" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
                     </fieldset>
 
                     <h3></h3>
