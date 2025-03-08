@@ -3,6 +3,7 @@ from app.models import db, Admin, Student
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
+
 admin_routes = Blueprint('admin_routes', __name__)
 
 # User Type Selection
@@ -219,6 +220,11 @@ def admin_add_student():
             flash("ID Card Number already exists", "error")
             return redirect(url_for('admin_routes.admin_add_student'))
 
+        id_card_number = int(id_card_number)
+        if Student.query.filter((id_card_number <= 100000) & (id_card_number >= 999999)).first():             
+            flash("ID Card Number is not 6 Digits", "error")
+            return redirect(url_for('admin_routes.admin_add_student'))
+
         student = Student(Firstname=first_name, Lastname=last_name, idcardnumber=id_card_number)
         db.session.add(student)
         db.session.commit()
@@ -241,6 +247,11 @@ def admin_student_profile(student_id):
         student.Firstname = request.form['first_name']
         student.Lastname = request.form['last_name']
         student.idcardnumber = request.form['id_card_number']
+
+        id_card_number = int(request.form['id_card_number'])
+        if id_card_number < 100000 or id_card_number > 999999:
+            flash("ID Card Number must be exactly 6 digits", "error")
+            return redirect(url_for('admin_routes.admin_add_student'))
 
         db.session.commit()
         flash("Student profile updated successfully", "success")
