@@ -1,0 +1,36 @@
+{% extends 'AdminSidebar.html' %}
+{% block title %}Admin Login Page {% endblock %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center">
+    <div class="row my-5 text-center justify-content-center">
+        <h1 class="display-2 fw-bold">Calendar</h1>
+        </div>
+    </div>
+    <div class="table-responsive">
+    <table class="table align-middle">
+        <thead>
+            <tr>
+                <th>Event Title</th>
+                <th>Event Organizers</th>
+                <th>Event Start Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for EventsForm in submitted_forms  %}
+            <tr>
+                <td class="col-3">{{ EventsForm.EventTitle }}</td>
+                <td class="col-5">{{ EventsForm.TeamMembers}}</td>
+                <td class="col-3">{{ EventsForm.EventStart }}</td>
+                <td class="col-2">
+                    <a class="btn btn-success" href="{{ url_for('admin_routes.viewcalendar', EventID=EventsForm.EventID) }}">View</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+{% endblock %}

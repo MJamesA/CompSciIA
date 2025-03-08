@@ -184,7 +184,19 @@ def calendar():
         flash("You need to log in as an admin to access this page.", "error")
         return redirect(url_for('admin_routes.admin_login'))
 
-    return render_template('admin/calendar.html') 
+    submitted_forms = db.session.query(Event).all()
+    return render_template('admin/calendarlist.html', submitted_forms=submitted_forms) 
+
+# View a Calendar Entry
+@admin_routes.route('/admin/viewcalendar/<int:EventID>', methods=['GET', 'POST'])
+def viewcalendar(EventID):
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        flash("You need to log in as an admin to access this page.", "error")
+        return redirect(url_for('admin_routes.admin_login'))
+
+    submitted_form = Event.query.get(EventID)
+
+    return render_template('admin/calendarview.html', submitted_form=submitted_form )
 
 # Admin User Managment
 @admin_routes.route('/admin/usermanagement')
