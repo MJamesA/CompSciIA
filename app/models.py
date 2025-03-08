@@ -15,17 +15,10 @@ class Admin(db.Model):
     is_active = db.Column(db.Boolean, default=True)
 
     def set_password(self, password: str) -> None:
-        """Hashes the password and stores it.
-
-        :param password: The password to set
-        :type password: str
-        :return: None
-        :rtype: None
-        """
+        
         self.Password = generate_password_hash(password)
 
     def check_password(self, password):
-        """Checks the password against the hashed version."""
         return check_password_hash(self.Password, password)
 
     def __repr__(self):
@@ -48,7 +41,7 @@ class Student(db.Model):
 class Event(db.Model):
     __tablename__ = 'EventsForm'
 
-    ID = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    EventID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     EventTitle = db.Column(db.String(255), nullable=False)
     Description = db.Column(db.Text, nullable=False)
     EmailAddress = db.Column(db.String(255), nullable=False)
@@ -71,6 +64,7 @@ class Event(db.Model):
     Spectators = db.Column(db.String(255), nullable=False)
     EstSpectators = db.Column(db.Integer, nullable=False)
     Caretakers = db.Column(db.String(255), nullable=True)
+    EventOrg = db.Column(db.String(255), nullable=False)
 
     def __repr__(self):
         return f"<Event {self.title}>"

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from app.models import db, Admin, Student
+from app.models import db, Admin, Student, Event
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -62,7 +62,7 @@ def temp():
         flash("You need to log in as an admin to access this page.", "error")
         return redirect(url_for('admin_routes.admin_login'))
 
-    return render_template('/admin/formsubmission.html')
+    return render_template('/admin/eventsformview.html')
 
 # Admin Homepage
 @admin_routes.route('/admin/homepage')
@@ -100,6 +100,39 @@ def formsub():
         return redirect(url_for('admin_routes.admin_login'))
 
     return render_template('/admin/formsubmission.html')
+
+# View Existing Forms
+@admin_routes.route('/admin/existingforms')
+def existingform():
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        flash("You need to log in as an admin to access this page.", "error")
+        return redirect(url_for('admin_routes.admin_login'))
+
+    submitted_forms = db.session.query(Event).all()
+    return render_template('admin/existingforms.html', submitted_forms=submitted_forms )
+
+# View a Form
+@admin_routes.route('/admin/viewform/<int:EventID>', methods=['GET', 'POST'])
+def viewform(EventID):
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        flash("You need to log in as an admin to access this page.", "error")
+        return redirect(url_for('admin_routes.admin_login'))
+
+    submitted_form = Event.query.get(EventID)
+
+    return render_template('admin/eventsformview.html', submitted_form=submitted_form )
+
+# Edit a Form
+@admin_routes.route('/admin/editform/<int:EventID>', methods=['GET', 'POST'])
+def editform(EventID):
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        flash("You need to log in as an admin to access this page.", "error")
+        return redirect(url_for('admin_routes.admin_login'))
+
+    submitted_form = Event.query.get(EventID)
+
+    return render_template('admin/eventsformedit.html', submitted_form=submitted_form )
+
 
 # Admin Calendar
 @admin_routes.route('/admin/calendar')

@@ -1,0 +1,36 @@
+{% extends 'AdminSidebar.html' %}
+{% block title %}Admin Login Page {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Submitted Event Forms</h1>
+    <a class="btn btn-primary" href="{{ url_for('admin_routes.adminsubmission') }}">Create New Event Form</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Event Title</th>
+                <th>Event Start Date</th>
+                <th>Event Submitter</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for EventsForm in submitted_forms  %}
+            <tr>
+                <td>{{ EventsForm.EventTitle }}</td>
+                <td>{{ EventsForm.EventStart }}</td>
+                <td>{{ EventsForm.EventOrg }}</td>
+                <td>
+                    <a class="btn btn-success" href="{{ url_for('admin_routes.viewform', EventID=EventsForm.EventID) }}">View</a>
+                    <a class="btn btn-primary" href="{{ url_for('admin_routes.editform', EventID=EventsForm.EventID) }}">Edit</a>
+                    <a class="btn btn-danger" href="{{ url_for('admin_routes.eventform', EventID=EventsForm.EventID) }}">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
