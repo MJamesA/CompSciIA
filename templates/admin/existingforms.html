@@ -12,6 +12,7 @@
                 <th>Event Title</th>
                 <th>Event Start Date</th>
                 <th>Event Submitter</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -21,6 +22,15 @@
                 <td>{{ EventsForm.EventTitle }}</td>
                 <td>{{ EventsForm.EventStart }}</td>
                 <td>{{ EventsForm.EventOrg }}</td>
+                    {% if EventsForm.EventOrg == 'APPROVED' %}
+                        <td class="bg-primary">APPROVED</td>
+                    {% elif EventsForm.EventOrg == 'OFFICIALIZED'%}
+                        <td class="bg-success">OFFICIALIZED</td>
+                    {% elif EventsForm.EventOrg =='REJECTED' %}
+                        <td class="bg-danger">REJECTED</td>
+                    {% else %}
+                        <td class="bg-warning">SUBMITTED</td>
+                    {% endif %}
                 <td>
                     <a class="btn btn-success" href="{{ url_for('admin_routes.viewform', EventID=EventsForm.EventID) }}">View</a>
                     <a class="btn btn-primary" href="{{ url_for('admin_routes.editform', EventID=EventsForm.EventID) }}">Edit</a>
