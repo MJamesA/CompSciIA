@@ -29,7 +29,7 @@
             $(element.form).find('.actions').removeClass('form-error');
             $(element).parent().find('.form-label').removeClass('form-label-error');
             $(element).removeClass('error');
-            $(element).addClass('valid');
+            $(element).addClass('valid'); 
         }
     });
     form.children("div").steps({
@@ -122,4 +122,9 @@
         });
     });
 
+
+    $(". leave_alert").on('click', function() {
+        $(this).parent().addClass('leave_alert');
+    });
 })(jQuery);
+

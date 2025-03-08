@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Events Forms</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
   </head>
 
@@ -13,25 +17,25 @@
     <div class="sticky-top d-flex flex-column flex-shrink-0 bg-body-tertiary" style=" height: 100vh;">
       <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
         <li class="nav-item">
-          <a href="/admin/homepage" class="nav-link py-3 border-bottom rounded-0">
+          <a href="/admin/homepage" class="nav-link py-3 border-bottom rounded-0  leave_alert">
               <i class="display-2 fa-solid text-black fa-house"></i>
              
   
           </a>
         </li>
         <li class="nav-item">
-          <a href="/admin/calendar" class="nav-link py-3 border-bottom rounded-0">
+          <a href="/admin/calendar" class="nav-link py-3 border-bottom rounded-0  leave_alert">
               <i class="display-2 fa-solid text-black fa-calendar-days"></i>
   
           </a>
         </li>
         <li>
-          <a href="/admin/eventform" class="nav-link py-3 border-bottom rounded-0">
+          <a href="/admin/eventform" class="nav-link py-3 border-bottom rounded-0  leave_alert">
               <i class="display-2 fa-solid text-black fa-file-lines"></i>
           </a>
         </li>
         <li>
-          <a href="/admin/usermanagement" class="nav-link py-3 border-bottom rounded-0">
+          <a href="/admin/usermanagement" class="nav-link py-3 border-bottom rounded-0  leave_alert">
               <i class="display-2 fa-solid text-black fa-users"></i>
           </a>
         </li>
@@ -40,12 +44,12 @@
       <div>
           <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
               <li>
-                  <a href="/admin/login" class="nav-link py-3 border-top rounded-0 border-bottom rounded-0">
+                  <a href="/admin/login" class="nav-link py-3 border-top rounded-0 border-bottom rounded-0  leave_alert">
                       <i class="display-2 fa-solid text-black fa-arrow-right-from-bracket"></i>
                   </a>
                 </li>
                 <div class="border-top">
-                  <a href = "/" class="d-flex align-items-center justify-content-center p-3 link-body-emphasis text-decoration-none">
+                  <a href = "/" class="d-flex align-items-center justify-content-center p-3 link-body-emphasis text-decoration-none  leave_alert">
                   <p class="display-3">Admin</p>
                 </a>
           </ul>
@@ -58,12 +62,64 @@
   </div>
   
 
+  
 
-<script src="{{url_for('static', filename ='/js/bootstrap.bundle.min.js')}}" 
-integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
-crossorigin="anonymous"></script>
+  <script src="{{url_for('static', filename ='/js/bootstrap.bundle.min.js')}}" 
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+  crossorigin="anonymous"></script>
+  <script src="{{url_for('static', filename ='/Wizard/vendor/jquery/jquery.min.js')}}"></script>
+  <script src="https://kit.fontawesome.com/1de27f3594.js" crossorigin="anonymous"></script>
+  
+ 
+  <!-- Custom Leave Confirmation Modal -->
+  <div class="modal fade" id="leaveModal" tabindex="-1" aria-labelledby="leaveModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="leaveModalLabel">Confirm Navigation</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       
+        </div>
+        <div class="modal-body">
+          Are you sure you want to leave this page?
+        </div>
+        <div class="modal-footer">
+          <button id="stayBtn" class="btn btn-secondary" >Stay</button>
+          <button id="leaveBtn" class="btn btn-danger">Leave</button>
+        
+        </div>
+      </div>
+    </div>
+  </div>
 
-<script src="https://kit.fontawesome.com/1de27f3594.js" crossorigin="anonymous"></script>
+  
+  <script>
+    $(document).ready(function() {
+      let pendingUrl = null;
+
+      // Capture clicks on leave_alert links
+      $(document).on('click', '.leave_alert', function(event) {
+        event.preventDefault(); // Stop immediate navigation
+        pendingUrl = $(this).attr('href'); // Store the target URL
+        $('#leaveModal').modal('show'); // Show the modal
+      });
+
+      // Handle Leave button click - Navigate to URL
+      $(document).on('click', '#leaveBtn', function() {
+        if (pendingUrl) {
+          window.location.href = pendingUrl; // Navigate to the stored URL
+        }
+      });
+     
+
+      // Handle Stay button click - Refresh page
+      $(document).on('click', '#stayBtn', function() {
+        window.location.reload(); // Refresh the current page
+      });
+    });
+  </script>
+
+  
 
   </body>
 </html>
