@@ -8,9 +8,10 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between mb-5">
         <h1 class="card-title mt-4 ">{{ submitted_form.EventTitle }}</h1>
-        <a class="btn btn-danger mt-4 mb-3 btn-lg px-5" href="{{ url_for('admin_routes.existingform') }}">Back to Events Forms List</a>
-        <a class="btn btn-primary mt-4 mb-3 btn-lg px-5" href="{{ url_for('admin_routes.editform', EventID=submitted_form.EventID) }}">
-            Edit
+        <a class="col-3 align-middle btn btn-warning mt-4 mb-3 btn-lg px-3" href="{{ url_for('admin_routes.existingform') }}">Request a Meeting</a>
+        <a class="col-2 align-middle btn btn-danger mt-4 mb-3 btn-lg px-3" href="{{ url_for('admin_routes.existingform') }}">Reject</a>
+        <a class="col-2 align-middle btn btn-success mt-4 mb-3 btn-lg px-3" href="{{ url_for('admin_routes.editform', EventID=submitted_form.EventID) }}">
+            Approve
         </a>
     </div>
     <div class="card shadow-lg">

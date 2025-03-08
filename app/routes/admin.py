@@ -398,6 +398,28 @@ def admin_student_delete(student_id):
     return redirect(url_for('admin_routes.admin_students'))
 
 
+# HOS Approval
+@admin_routes.route('/admin/HOSapproval/<int:EventID>', methods=['GET', 'POST'])
+def HOSapproval(EventID):
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        flash("You need to log in as an admin to access this page.", "error")
+        return redirect(url_for('admin_routes.admin_login'))
+
+    submitted_form = Event.query.get(EventID)
+
+    return render_template('admin/approvalHOS.html', submitted_form=submitted_form )
+
+# Campus Supervisor Approval
+@admin_routes.route('/admin/Campusapproval/<int:EventID>', methods=['GET', 'POST'])
+def CAMPUSapproval(EventID):
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        flash("You need to log in as an admin to access this page.", "error")
+        return redirect(url_for('admin_routes.admin_login'))
+
+    submitted_form = Event.query.get(EventID)
+
+    return render_template('admin/approvalcampus.html', submitted_form=submitted_form )
+
 # Admin Logout
 @admin_routes.route('/admin/logout')
 def admin_logout():
