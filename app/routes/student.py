@@ -114,32 +114,34 @@ def manage_events():
     if request.method == 'POST':
         # Extract form data
         new_event = Event(
-            title=request.form['title'],
-            description=request.form['description'],
-            organizer_email=request.form['organizer_email'],
-            event_date=request.form['event_date'],
-            supervisors=request.form['supervisors'],
-            security_staff=request.form['security_staff'],
-            start_time=request.form['start_time'],
-            end_time=request.form['end_time'],
-            organizer_name=request.form['organizer_name'],
-            location_facilities=request.form.get('location_facilities'),
-            resources_needed=request.form.get('resources_needed'),
-            team_members=request.form.get('team_members'),
-            it_resources=request.form.get('it_resources'),
-            finance_department=request.form.get('finance_department'),
-            communication_department=request.form.get('communication_department'),
-            first_aid_required=request.form.get('first_aid_required'),
-            nurse_notes=request.form.get('nurse_notes')
+            EventTitle=request.form['title'],
+            Description=request.form['description'],
+            EmailAddress=request.form['organizer_email'],
+            DateFilled=request.form['event_date'],
+            EventSupervisor=request.form['supervisors'],
+            SecurityStaff=request.form['security_staff'],
+            EventStart=request.form['start_time'],
+            EventEnd=request.form['end_time'],
+            # organizer_name=request.form['organizer_name'],
+            Location=request.form.get('location'),
+            Facilities=request.form.get('facilities'),
+            Resources=request.form.get('resources_needed'),
+            TeamMembers=request.form.get('team_members'),
+            ITResources=request.form.get('it_resources'),
+            Finance=request.form.get('finance_department'),
+            Communications=request.form.get('communication_department'),
+            FirstAid=request.form.get('first_aid_required'),
+            NurseNote=request.form.get('nurse_notes'),
+            Caretakers=request.form.get(''),
         )
         # Save the event to the database
         db.session.add(new_event)
         db.session.commit()
 
-        # Send email notification
-        msg = Message('Event Created', sender='ia2025test@gmail.com', recipients=[new_event.organizer_email])
-        msg.body = f"Your event '{new_event.title}' has been created successfully!"
-        mail.send(msg)
+        # # Send email notification
+        # msg = Message('Event Created', sender='your_email@example.com', recipients=[new_event.organizer_email])
+        # msg.body = f"Your event '{new_event.title}' has been created successfully!"
+        # mail.send(msg)
 
         return jsonify({'message': 'Event created successfully! Email sent to organizer.'}), 201
     else:
