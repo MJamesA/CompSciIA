@@ -24,7 +24,7 @@
                 <td>
                     <a class="btn btn-success" href="{{ url_for('admin_routes.viewform', EventID=EventsForm.EventID) }}">View</a>
                     <a class="btn btn-primary" href="{{ url_for('admin_routes.editform', EventID=EventsForm.EventID) }}">Edit</a>
-                    <a class="btn btn-danger" href="{{ url_for('admin_routes.eventform', EventID=EventsForm.EventID) }}">
+                    <a class="btn btn-danger" href="{{ url_for('admin_routes.deleteform', EventID=EventsForm.EventID) }}">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </a>
                 </td>
