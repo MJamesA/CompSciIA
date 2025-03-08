@@ -1,0 +1,131 @@
+{% extends 'admin/eventsubmissionsidebar.html' %}
+{% block title %}Event Submission Template {% endblock %}
+
+{% block content %}
+
+<div class="container2">
+    <div class="row my-5 text-center justify-content-center">
+        <h1 class="display-2 fw-bold">Events Form</h1>
+        <div class=" text-center justify-content-center">
+        </div>
+    </div>
+</div>
+
+    <div class="main">
+
+        <div class="container">
+            <form method="POST" id="signup-form" class="signup-form" action="/events">
+                <div>
+                    <h3></h3>
+                    <fieldset>
+                        <input type="text" name="title" id="title" />
+                        <label for="title" class="form-label">Event Title</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <label for="description">Event Description:</label>
+                        <textarea id="description" name="description" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea><br><br>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <input type="email" name="organizer_email" id="organizer_email" />
+                        <label for="organizer_email" class="form-label">Organizer Email</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <input type="date" name="event_date" id="event_date" />
+                        <label for="event_date" class="form-label">Event Date</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <input type="text" name="supervisors" id="supervisors" />
+                        <label for="supervisors" class="form-label">Supervisors</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <input type="text" name="security_staff" id="security_staff" />
+                        <label for="security_staff" class="form-label">Security Staff</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <input type="time" name="start_time" id="start_time" />
+                        <label for="start_time" class="form-label">Start Time</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <input type="time" name="end_time" id="end_time" />
+                        <label for="end_time" class="form-label">End Time</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <input type="text" name="organizer_name" id="organizer_name" />
+                        <label for="organizer_name" class="form-label">Organizer Name</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <textarea name="location_facilities" id="location_facilities" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
+                        <label for="location_facilities" class="form-label">Location Facilities</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <textarea name="resources_needed" id="resources_needed" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
+                        <label for="resources_needed" class="form-label">Resources Needed</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <textarea name="team_members" id="team_members" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
+                        <label for="team_members" class="form-label">Team Members</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <textarea name="it_resources" id="it_resources" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
+                        <label for="it_resources" class="form-label">IT Resources</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <input type="text" name="finance_department" id="finance_department" />
+                        <label for="finance_department" class="form-label">Finance Department</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <input type="text" name="communication_department" id="communication_department" />
+                        <label for="communication_department" class="form-label">Communication Department</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <input type="text" name="first_aid_required" id="first_aid_required" />
+                        <label for="first_aid_required" class="form-label">First Aid Required</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <textarea name="nurse_notes" id="nurse_notes" style="display: block; width: 100%; border: none; border-bottom: 3px solid #ebebeb; box-sizing: border-box; font-family: 'Montserrat'; font-weight: bold; font-size: 22px; transition: 0.3s ease; padding-top: 30px; padding-bottom: 3px;"></textarea>
+                        <label for="nurse_notes" class="form-label">Nurse Notes</label>
+                    </fieldset>
+
+                    <h3></h3>
+                    <fieldset>
+                        <input href="/admin/formsub" type="submit" name="re_password" id="re_password" class="btn btn-primary" value="submit" />
+                        
+                        <span toggle="#re_password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -3,13 +3,13 @@ from app.models import db, Admin, Student
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-# Create a Blueprint for the admin routes
 admin_routes = Blueprint('admin_routes', __name__)
 
 # User Type Selection
 @admin_routes.route('/', methods=['GET', 'POST'])
 def usertype():
     return render_template('UserTypeSelection.html')
+
 
 
 # Admin Registration -- Temporary
@@ -21,14 +21,12 @@ def admin_register():
         username = request.form['username']
         password = request.form['password']
 
-        # Check if Username already exists
         if Admin.query.filter_by(Username=username).first():
             flash("Username already taken", "error")
             return redirect(url_for('admin_routes.admin_register'))
 
-        # Create and save the new admin
         admin = Admin(Firstname=first_name, Lastname=last_name, Username=username)
-        admin.set_password(password)  # Assume the model has `set_password` method for hashing
+        admin.set_password(password)
         db.session.add(admin)
         db.session.commit()
 
@@ -45,7 +43,7 @@ def admin_login():
         password = request.form['password']
 
         admin = Admin.query.filter_by(Username=username).first()
-        if admin and admin.check_password(password):  # Assume the model has `check_password`
+        if admin and admin.check_password(password):
             session['user_type'] = 'admin'
             session['admin_id'] = admin.AdminID
             flash("Login successful", "success")
@@ -54,6 +52,16 @@ def admin_login():
         flash("Invalid username or password", "error")
 
     return render_template('admin/login.html')
+
+
+# Temporary
+@admin_routes.route('/temp', methods=['GET', 'POST'])
+def temp():
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        flash("You need to log in as an admin to access this page.", "error")
+        return redirect(url_for('admin_routes.admin_login'))
+
+    return render_template('/admin/formsubmission.html')
 
 # Admin Homepage
 @admin_routes.route('/admin/homepage')
@@ -72,16 +80,25 @@ def eventform():
         flash("You need to log in as an admin to access this page.", "error")
         return redirect(url_for('admin_routes.admin_login'))
 
-    return render_template('admin/eventform.html') 
+    return render_template('admin/eventform.html')
 
-# Admin Event Submission
-@admin_routes.route('/admin/eventsubmission')
-def eventsubmission():
+# Event Submission
+@admin_routes.route('/admin/submission', methods=['GET', 'POST'])
+def adminsubmission():
     if 'user_type' not in session or session['user_type'] != 'admin':
         flash("You need to log in as an admin to access this page.", "error")
         return redirect(url_for('admin_routes.admin_login'))
 
-    return render_template('AdminEventSubmission.html') 
+    return render_template('admin/eventsubmissiontemplate.html')
+
+# Form Submitted
+@admin_routes.route('/admin/formsub', methods=['GET', 'POST'])
+def formsub():
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        flash("You need to log in as an admin to access this page.", "error")
+        return redirect(url_for('admin_routes.admin_login'))
+
+    return render_template('/admin/formsubmission.html')
 
 # Admin Calendar
 @admin_routes.route('/admin/calendar')
@@ -111,35 +128,31 @@ def admin_user_list():
     admin_users = Admin.query.all()
     return render_template('admin/admin_user_list.html', admin_users=admin_users)
 
-# Admin Create User
+# Admin Create Admin
 @admin_routes.route('/admin/create_user', methods=['GET', 'POST'])
 def create_admin_user():
-    # Ensure only existing admins can access this page
     if 'user_type' not in session or session['user_type'] != 'admin':
         flash("You need to log in as an admin to access this page.", "error")
         return redirect(url_for('admin_routes.admin_login'))
 
     if request.method == 'POST':
-        # Retrieve form data
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         username = request.form['username']
         password = request.form['password']
 
-        # Check if the username already exists
         existing_admin = Admin.query.filter_by(Username=username).first()
         if existing_admin:
             flash("Username already exists. Please choose a different one.", "error")
             return redirect(url_for('admin_routes.create_admin_user'))
 
-        # Create the new admin user and add to the database
         new_admin = Admin(Firstname=first_name, Lastname=last_name, Username=username)  
         new_admin.set_password(password)
         db.session.add(new_admin)
         db.session.commit()
 
         flash("Admin user created successfully!", "success")
-        return redirect(url_for('admin_routes.admin_user_list'))  # Redirect to the admin dashboard
+        return redirect(url_for('admin_routes.admin_user_list'))  
 
     return render_template('admin/create_admin_user.html')
 
@@ -190,7 +203,7 @@ def admin_students():
     students = Student.query.all()
     return render_template('admin/students_list.html', students=students)
 
-# Admin can add a new student
+# Admin add student
 @admin_routes.route('/admin/add_student', methods=['GET', 'POST'])
 def admin_add_student():
     if 'user_type' not in session or session['user_type'] != 'admin':
@@ -215,7 +228,7 @@ def admin_add_student():
 
     return render_template('admin/add_student.html')
 
-# Admin can view and update a student's profile
+# Admin view and update student 
 @admin_routes.route('/admin/student/<int:student_id>', methods=['GET', 'POST'])
 def admin_student_profile(student_id):
     if 'user_type' not in session or session['user_type'] != 'admin':
@@ -235,6 +248,7 @@ def admin_student_profile(student_id):
 
     return render_template('admin/student_profile.html', student=student)
 
+# Admin Delete Student
 @admin_routes.route('/admin/studentdelete/<int:student_id>', methods=['GET', 'POST'])
 def admin_student_delete(student_id):
     if 'user_type' not in session or session['user_type'] != 'admin':
