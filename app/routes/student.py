@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from app.models import db, Student, Event
 from flask_mail import Mail, Message
 
-# Initialize Flask-Mail
 mail = Mail()
 
 
@@ -133,7 +132,7 @@ def manage_events():
             NurseNote=request.form.get('nurse_notes'),
             Caretakers=request.form.get('caretakers'),
             EventOrg=request.form.get('event_organiser'),
-            Status="SUMMITTED"
+            Status="SUBMITTED"
         )
         # Save the event to the database
         db.session.add(new_event)
@@ -196,6 +195,7 @@ def admin_event(event_id):
         event.first_aid_required = data.get('first_aid_required')
         event.nurse_notes = data.get('nurse_notes')
         db.session.commit()
+        
         return jsonify({'message': 'Event updated successfully!'}), 200
     elif request.method == 'DELETE':
         db.session.delete(event)

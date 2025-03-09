@@ -70,7 +70,7 @@ class Event(db.Model):
     EstSpectators = db.Column(db.Integer, nullable=False)
     Caretakers = db.Column(db.String(255), nullable=True)
     EventOrg = db.Column(db.String(255), nullable=False)
-    Status = db.Column(Enum('SUBMITED', 'REJECTED', 'OFFICIALIZED','APPOVED'), default='SUBMITED')
+    Status = db.Column(Enum('SUBMITTED', 'REJECTED', 'OFFICIALIZED','APPOVED'), default='SUBMITTED')
     
 
     def __repr__(self):
