@@ -5,17 +5,7 @@
         errorPlacement: function errorPlacement(error, element) {
              element.before(error); 
         },
-        rules: {
-            first_name : {
-                required: true,
-            },
-            last_name : {
-                required: true,
-            },
-            email : {
-                required: true,
-            }
-        },
+     
         onfocusout: function(element) {
             $(element).valid();
         },
@@ -43,21 +33,7 @@
         },
         onStepChanging: function (event, currentIndex, newIndex)
         {
-            // if(currentIndex === 0) {
-            //     form.parent().parent().parent().append('<div class="footer footer-' + currentIndex + '"></div>');
-            // }
-            // if(currentIndex === 1) {
-            //     form.parent().parent().parent().find('.footer').removeClass('footer-0').addClass('footer-'+ currentIndex + '');
-            // }
-            // if(currentIndex === 2) {
-            //     form.parent().parent().parent().find('.footer').removeClass('footer-1').addClass('footer-'+ currentIndex + '');
-            // }
-            // if(currentIndex === 3) {
-            //     form.parent().parent().parent().find('.footer').removeClass('footer-2').addClass('footer-'+ currentIndex + '');
-            // }
-            // if(currentIndex === 4) {
-            //     form.parent().parent().parent().append('<div class="footer" style="height:752px;"></div>');
-            // }
+
             form.validate().settings.ignore = ":disabled,:hidden";
             return form.valid();
         },
@@ -68,7 +44,6 @@
         },
         onFinished: function (event, currentIndex)
         {
-            // form.parent().parent().append('<h1>Hi , Hoang !</h1>').parent().addClass('finished');
             return true;
         },
         onStepChanged : function (event, currentIndex, priorIndex) {
@@ -77,18 +52,6 @@
         }
     });
 
-    jQuery.extend(jQuery.validator.messages, {
-        required: "",
-        remote: "",
-        email: "",
-        url: "",
-        date: "",
-        dateISO: "",
-        number: "",
-        digits: "",
-        creditcard: "",
-        equalTo: ""
-    });
     $(".toggle-password").on('click', function() {
 
         $(this).toggleClass("zmdi-eye zmdi-eye-off");
@@ -103,16 +66,15 @@
     $(document).ready(function() {
         var form = $('#signup-form');
         form.on('submit', function(e) {
-            e.preventDefault(); // Prevent the default form submission
-            var formData = form.serialize(); // Serialize form data
+            e.preventDefault();
+            var formData = form.serialize();
 
             $.ajax({
                 type: 'POST',
-                url: '/events', // Adjust the URL to match the event creation route
+                url: '/events',
                 data: formData,
                 success: function(response) {
                     alert('Event submitted successfully!');
-                    // Optionally redirect or reset the form
                     form[0].reset();
                 },
                 error: function(xhr, status, error) {

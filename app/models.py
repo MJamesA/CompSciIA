@@ -17,10 +17,6 @@ class Admin(db.Model):
 
     def set_password(self, password: str) -> None:
         
-        """Set the password for the admin
-        Args:
-            password (str): The password to set
-        """
         self.Password = generate_password_hash(password)
 
     def check_password(self, password):
@@ -55,8 +51,6 @@ class Event(db.Model):
     SecurityStaff = db.Column(db.String(255), nullable=True)
     EventStart = db.Column(db.DateTime, nullable=False)
     EventEnd = db.Column(db.DateTime, nullable=False)
-    # DateFilled = db.Column(db.DateTime, default=db.func.now())
-    # organizer_name = db.Column(db.String(255), nullable=False)
     Location = db.Column(db.Text, nullable=True)
     Facilities = db.Column(db.Text, nullable=True)
     Resources = db.Column(db.Text, nullable=True)
@@ -70,7 +64,7 @@ class Event(db.Model):
     EstSpectators = db.Column(db.Integer, nullable=False)
     Caretakers = db.Column(db.String(255), nullable=True)
     EventOrg = db.Column(db.String(255), nullable=False)
-    Status = db.Column(Enum('SUBMITTED', 'REJECTED', 'OFFICIALIZED','APPOVED'), default='SUBMITTED')
+    Status = db.Column(Enum('SUBMITTED', 'REJECTED', 'OFFICIALIZED', 'APPROVED', 'REQUEST'), default='SUBMITTED')
     
 
     def __repr__(self):

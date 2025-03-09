@@ -1,0 +1,67 @@
+{% extends 'StudentSidebar.html' %}
+{% block title %}Admin Login Page {% endblock %}
+
+{% block content %}
+
+
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-5">
+        <h1 class="card-title mt-4 ">{{ submitted_form.EventTitle }}</h1>
+        <a class="btn btn-success mt-4 mb-3 btn-lg px-5" href="{{ url_for('student_routes.calendar') }}">Back to Calendar</a>
+    </div>
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <div >
+            </div>
+            <div class="row d-flex align-items-stretch">
+            <div class="row">
+                
+                <div class="container">
+                    <div class="row py-2 border-bottom">
+                        <div class="fw-bold h5 col-6">Event Title</div>
+                        <div class="col-6">{{ submitted_form.EventTitle }}</div>
+                    </div>
+    
+                    <div class="row py-2 border-bottom">
+                        <div class="fw-bold h5 col-6">Description</div>
+                        <div class="col-6">{{ submitted_form.Description }}</div>
+                    </div>
+    
+                    <div class="row py-2 border-bottom">
+                        <div class="fw-bold h5 col-6">Event Start Date and Time</div>
+                        <div class="col-6">{{ submitted_form.EventStart }}</div>
+                    </div>
+    
+                    <div class="row py-2 border-bottom">
+                        <div class="fw-bold h5 col-6">Event End Date and Time</div>
+                        <div class="col-6">{{ submitted_form.EventEnd }}</div>
+                    </div>
+    
+                    <div class="row py-2 border-bottom">
+                        <div class="fw-bold h5 col-6">Organising Team</div>
+                        <div class="col-6">{{ submitted_form.TeamMembers }}</div>
+                    </div>
+    
+                    <div class="row py-2 border-bottom">
+                        <div class="fw-bold h5 col-6">Participants</div>
+                        <div class="col-6">{{ submitted_form.Spectators }}</div>
+                    </div>
+    
+                    <div class="row py-2 border-bottom">
+                        <div class="fw-bold h5 col-6">Location</div>
+                        <div class="col-6">{{ submitted_form.Location }}</div>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

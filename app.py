@@ -10,12 +10,11 @@ import os
 from dotenv import load_dotenv
 from flask_mail import Mail
 
-# Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
 
-# Database configuration
+# Email Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
@@ -32,18 +31,17 @@ mysql = MySQL(app)
 db.init_app(app)
 migrate = Migrate(app, db)
 mail = Mail(app)
-# Create tables automatically if they don't exist
+
 with app.app_context():
     db.create_all()
 def create_tables():
     with app.app_context():
         db.create_all()
-# Login decorator for admin routes
 init_routes(app, db)
 
 @app.route('/events')
 def list_events():
-    events = Event.query.all()  # Fetch all events from the database
+    events = Event.query.all()
     return render_template('events.html', events=events)
 
 if __name__ == '__main__':

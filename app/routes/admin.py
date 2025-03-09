@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
 from app.models import db, Admin, Student, Event
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
@@ -11,32 +11,6 @@ admin_routes = Blueprint('admin_routes', __name__)
 @admin_routes.route('/', methods=['GET', 'POST'])
 def usertype():
     return render_template('UserTypeSelection.html')
-
-
-
-# Admin Registration -- Temporary
-@admin_routes.route('/admin/register', methods=['GET', 'POST'])
-def admin_register():
-    if request.method == 'POST':
-        first_name = request.form['first_name']
-        last_name = request.form['last_name']
-        username = request.form['username']
-        role = request.form['role']
-        password = request.form['password']
-
-        if Admin.query.filter_by(Username=username).first():
-            flash("Username already taken", "error")
-            return redirect(url_for('admin_routes.admin_register'))
-
-        admin = Admin(Firstname=first_name, Lastname=last_name, Username=username,role=role)
-        admin.set_password(password)
-        db.session.add(admin)
-        db.session.commit()
-
-        flash("Admin registered successfully", "success")
-        return redirect(url_for('admin_routes.admin_login'))
-
-    return render_template('admin/register.html')
 
 # Admin Login
 @admin_routes.route('/admin/login', methods=['GET', 'POST'])
@@ -55,16 +29,6 @@ def admin_login():
         flash("Invalid username or password", "error")
 
     return render_template('admin/login.html')
-
-
-# Temporary
-@admin_routes.route('/temp', methods=['GET', 'POST'])
-def temp():
-    if 'user_type' not in session or session['user_type'] != 'admin':
-        flash("You need to log in as an admin to access this page.", "error")
-        return redirect(url_for('admin_routes.admin_login'))
-
-    return render_template('/admin/eventsformview.html')
 
 # Admin Homepage
 @admin_routes.route('/admin/homepage')
@@ -94,15 +58,6 @@ def adminsubmission():
 
     return render_template('admin/eventsubmissiontemplate.html')
 
-# Form Submitted
-@admin_routes.route('/admin/formsub', methods=['GET', 'POST'])
-def formsub():
-    if 'user_type' not in session or session['user_type'] != 'admin':
-        flash("You need to log in as an admin to access this page.", "error")
-        return redirect(url_for('admin_routes.admin_login'))
-
-    return render_template('/admin/formsubmission.html')
-
 # View Existing Forms
 @admin_routes.route('/admin/existingforms')
 def existingform():
@@ -130,9 +85,6 @@ def editform(EventID):
     if 'user_type' not in session or session['user_type'] != 'admin':
         flash("You need to log in as an admin to access this page.", "error")
 
-
-
-        
         return redirect(url_for('admin_routes.admin_login'))
 
     submitted_form = Event.query.get(EventID)
@@ -159,7 +111,7 @@ def editform(EventID):
         submitted_form.NurseNote=request.form.get('nurse_notes'),
         submitted_form.Caretakers=request.form.get('caretakers'),
         submitted_form.EventOrg=request.form.get('event_organiser')
-        submitted_form.Status="SUMMITTED"
+        submitted_form.Status="SUBMITTED"
 
         db.session.commit()
         flash("Profile updated successfully", "success")
@@ -167,35 +119,63 @@ def editform(EventID):
 
     return render_template('admin/eventsformedit.html', submitted_form=submitted_form )
 
+# Event Request a Meeting
+@admin_routes.route('/admin/HOS/<int:EventID>', methods=['GET', 'POST'])
+def requestEvent(EventID):
+        submitted_form = Event.query.get(EventID)
+        submitted_form.Status="REQUEST"
 
+        db.session.commit()
+
+        Requestemail = url_for('admin_routes.HOSapproval', EventID=EventID, _external=True)
+
+        msg = Message('Event Update', sender=' ia2025test@gmail.com', recipients=[submitted_form.EmailAddress])
+        msg.body = f"A meeting has been requested to discuss your submitted event, '{submitted_form.EventTitle}'.\n\nPlease speak to the Head of School and Campus Supervisor!"
+        mail.send(msg)
+    
+        return redirect(url_for('admin_routes.existingform'))
+
+# Event Approved - HOS
+@admin_routes.route('/admin/HOSapproved/<int:EventID>', methods=['GET', 'POST'])
+def approvedHOSEvent(EventID):
+        submitted_form = Event.query.get(EventID)
+        submitted_form.Status="APPROVED"
+
+        db.session.commit()
+
+        Campusapprove = url_for('admin_routes.CAMPUSapproval', EventID=EventID, _external=True)
+        
+        msg = Message('New Event', sender=' ia2025test@gmail.com', recipients=["compsci2025ia+Campus@gmail.com"])
+        msg.body = f"An event, '{submitted_form.EventTitle}' has been submitted by '{submitted_form.EventOrg}' and has been approved by the Head of School!\n\nTo review the Event form please follow this link: {Campusapprove}"
+        mail.send(msg)
+    
+        return redirect(url_for('admin_routes.existingform'))   
+            
+# Event Officialized - Campus
 @admin_routes.route('/admin/approve/<int:EventID>', methods=['GET', 'POST'])
-def approveEvent(EventID):
-   
-
+def officializeEvent(EventID):
     submitted_form = Event.query.get(EventID)
-    submitted_form.Status="APPOVED"
+    submitted_form.Status="OFFICIALIZED"
 
     db.session.commit()
-    flash("Profile updated successfully", "success")
-    event_url = url_for('admin_routes.viewform', EventID=EventID, _external=True)
+
+    event_url = url_for('admin_routes.viewcalendar', EventID=EventID, _external=True)
     
-    msg = Message('Event Created', sender=' ia2025test@gmail.com', recipients=[submitted_form.EmailAddress])
-    msg.body = f"Your event '{submitted_form.EventTitle}' has been approved successfully!\n\nView it here: {event_url}"
+    msg = Message('Event Approved', sender=' ia2025test@gmail.com', recipients=[submitted_form.EmailAddress])
+    msg.body = f"Your event '{submitted_form.EventTitle}' has been approved by the Head of School and Campus Supervisor!\n\nView it on the calendar here: {event_url}"
     mail.send(msg)
     return redirect(url_for('admin_routes.existingform'))   
 
+# Event Rejected
 @admin_routes.route('/admin/reject/<int:EventID>', methods=['GET', 'POST'])
 def rejectEvent(EventID):
-
     submitted_form = Event.query.get(EventID)
-  
+    submitted_form.Status="REJECTED"
 
-    db.session.commit()
-    flash("Profile updated successfully", "success")
+    db.session.commit()    
     
-    
-    msg = Message('Event Created', sender=' ia2025test@gmail.com', recipients=[submitted_form.EmailAddress])
-    msg.body = f"Your event '{submitted_form.EventTitle}' Sorry your event has been rejected !"
+    msg = Message('Event Update', sender=' ia2025test@gmail.com', recipients=[submitted_form.EmailAddress])
+    msg.body = f"Your event '{submitted_form.EventTitle}' has unfortunately been rejected! Please speak to the Head of School if you wish to resubmit."
     mail.send(msg)
     return redirect(url_for('admin_routes.existingform'))   
 
@@ -219,8 +199,10 @@ def calendar():
         flash("You need to log in as an admin to access this page.", "error")
         return redirect(url_for('admin_routes.admin_login'))
 
-    submitted_forms = db.session.query(Event).all()
-    return render_template('admin/calendarlist.html', submitted_forms=submitted_forms) 
+    submitted_forms = db.session.query(Event).filter_by(Status="Officialized").all()
+    sorted_events = sorted(submitted_forms, key=lambda event: event.EventStart)
+
+    return render_template('admin/calendarlist.html', submitted_forms=sorted_events)
 
 # View a Calendar Entry
 @admin_routes.route('/admin/viewcalendar/<int:EventID>', methods=['GET', 'POST'])

@@ -22,12 +22,14 @@
                 <td>{{ EventsForm.EventTitle }}</td>
                 <td>{{ EventsForm.EventStart }}</td>
                 <td>{{ EventsForm.EventOrg }}</td>
-                    {% if EventsForm.EventOrg == 'APPROVED' %}
+                    {% if EventsForm.Status == 'APPROVED' %}
                         <td class="bg-primary">APPROVED</td>
-                    {% elif EventsForm.EventOrg == 'OFFICIALIZED'%}
+                    {% elif EventsForm.Status == 'OFFICIALIZED'%}
                         <td class="bg-success">OFFICIALIZED</td>
-                    {% elif EventsForm.EventOrg =='REJECTED' %}
+                    {% elif EventsForm.Status =='REJECTED' %}
                         <td class="bg-danger">REJECTED</td>
+                    {% elif EventsForm.Status =='REQUEST' %}
+                        <td class="bg-light">REQUESTED</td>
                     {% else %}
                         <td class="bg-warning">SUBMITTED</td>
                     {% endif %}
