@@ -25,7 +25,7 @@
                 <td class="col-5">{{ EventsForm.TeamMembers}}</td>
                 <td class="col-3">{{ EventsForm.EventStart }}</td>
                 <td class="col-2">
-                    <a class="btn btn-success" href="{{ url_for('student_routes.viewcalendar', EventID=EventsForm.EventID) }}">View</a>
+                    <a class="btn btn-success" href="{{ url_for('admin_routes.viewcalendar', EventID=EventsForm.EventID) }}">View</a>
                 </td>
             </tr>
             {% endfor %}

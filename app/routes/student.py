@@ -31,7 +31,7 @@ def student_login():
 def student_homepage():
     if 'user_type' not in session or session['user_type'] != 'student':
         flash("You need to log in as a student to access this page.", "error")
-        return redirect(url_for('student_login'))
+        return redirect(url_for('student_routes.student_login'))
 
     student = Student.query.get(session['student_id'])
     return render_template('student/homepage.html', student=student)
@@ -61,18 +61,11 @@ def calendar():
 def viewcalendar(EventID):
     if 'user_type' not in session or session['user_type'] != 'student':
         flash("You need to log in as a student to access this page.", "error")
-        return redirect(url_for('student_login'))
+        return redirect(url_for('student_routes.student_login'))
 
     submitted_form = Event.query.get(EventID)
 
     return render_template('student/calendarview.html', submitted_form=submitted_form )
-
-# Student Logout
-@student_routes.route('/student/logout')
-def student_logout():
-    session.clear()
-    flash("Logged out successfully", "success")
-    return redirect(url_for('student_login'))
 
 # Event form submission emails and database push
 @student_routes.route('/events', methods=['GET', 'POST'])
@@ -126,19 +119,22 @@ def manage_events():
 def studentsubmission():
     if 'user_type' not in session or session['user_type'] != 'student':
         flash("You need to log in as a student to access this page.", "error")
-        return redirect(url_for('student_login'))
+        return redirect(url_for('student_routes.student_login'))
 
     return render_template('student/eventsubmissiontemplate.html')
 
 
 @student_routes.route('/submit-event', methods=['GET'])
 def submit_event():
+    if 'user_type' not in session or session['user_type'] != 'student':
+        flash("You need to log in as a student to access this page.", "error")
+        return redirect(url_for('student_routes.student_login'))
+
     return render_template('admin/eventsubmissiontemplate.html')
 
-@student_routes.route('/testemail', methods=['GET'])
-def testemail():
-        msg = Message('Event Created', sender=' ia2025test@gmail.com', recipients=[""])
-        msg.body = f"Your event 'testing' has been created successfully!"
-        mail.send(msg)
-
-        return jsonify({'message': 'Event created successfully! Email sent to organizer.'}), 201
+# Student Logout
+@student_routes.route('/student/logout')
+def student_logout():
+    session.clear()
+    flash("Logged out successfully", "success")
+    return redirect(url_for('student_routes.student_login'))
